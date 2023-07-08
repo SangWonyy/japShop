@@ -2,25 +2,26 @@ package jpabook.jpashop.entity;
 
 import jakarta.persistence.*;
 import jpabook.jpashop.domain.Address;
+import jpabook.jpashop.type.DeliveryStatus;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Member {
+public class Delivery {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "delivery_id")
     private Long id;
 
-    private String name;
+    @OneToOne(mappedBy = "delivery")
+    private Order order;
 
     @Embedded
     private Address address;
 
-    @OneToMany(mappedBy = "member") // order table에 있는 member에 의해 맵핑 된거야
-    private List<Order> orders;
+    @Enumerated(EnumType.STRING)
+    private DeliveryStatus status;
 }
