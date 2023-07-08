@@ -1,0 +1,32 @@
+server:
+  servlet:
+    context-path: /api
+  port: 9090
+spring:
+  application:
+    name: JPA-SERVICE
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/killbill?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&tinyInt1isBit=false"
+    username: root
+    password: killbill1234
+    hikari:
+      auto-commit: false
+      maximum-pool-size: 10
+      max-lifetime: 580000
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
